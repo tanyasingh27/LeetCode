@@ -23,3 +23,22 @@ The string size will be in the range [1, 100].
 */
 
 // ---------------------- IMPLEMENTATION --------------------------------
+var checkValidString = function(s) {
+    return check(0, s, 0);
+};
+
+function check(count, s, idx) {
+    if (count < 0) return false;
+    if (idx >= s.length) return count === 0;
+    
+    switch (s[idx]) {
+        case "(":
+            return check(count + 1, s, idx + 1);
+        case ")":
+            return check(count - 1, s, idx + 1);
+        case "*":
+            return check(count + 1, s, idx + 1) || 
+                check(count - 1, s, idx + 1) || 
+                check(count, s, idx + 1);
+    }
+};
